@@ -1,0 +1,43 @@
+DATASET: 'scannet'
+BATCH_SIZE: 1
+SAVE_SCENE_MESH: True
+LOGDIR: './newcheckpoints'
+SAVE_FREQ: 1
+MODE: 'train'
+Need_DIS: False
+NeuralRecon: False #True #False
+TRAIN:
+  PATH: '/DATA/3dDATA/'
+  EPOCHS: 300
+  N_VIEWS: 9
+  LR: 1e-3
+  N_WORKERS: 64
+  LREPOCHS: '12,24,48:2'
+
+TEST:
+  PATH: '/DATA/3dDATA/'
+  N_VIEWS: 9
+  N_WORKERS: 16
+
+MODEL:
+  N_LAYER: 3
+  N_VOX: [80, 80, 80] #mountain:[80, 80, 80] indoor:[96,96,96]
+  VOXEL_SIZE: 1.0 #mountain:1.0 indoor:0.02
+  TRAIN_NUM_SAMPLE: [50000, 1000000, 300000]  #indoor:[4096, 16384, 65536] mountain:[50000, 1000000, 300000]
+  TEST_NUM_SAMPLE: [50000, 1000000, 300000]   #indoor:[4096, 16384, 65536] mountain:[50000, 1000000, 300000]
+
+  BACKBONE2D:
+    ARC: 'fpn-mnas-1'
+
+  FUSION:
+    FUSION_ON: True
+    HIDDEN_DIM: 8
+
+    AVERAGE: False
+    FULL: True
+
+  LW: [1.0, 0.8, 0.64]
+
+  THRESHOLDS: [0, 0, 0]
+  POS_WEIGHT: 1.5
+  #N_POINTS: [24,48,96]
